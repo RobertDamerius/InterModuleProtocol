@@ -30,8 +30,7 @@ void OutputDriverConvexPolygonDecode(uint8_t* bytes, uint32_t length, int32_t* n
     const uint32_t maxNumVertices = 255;
     const uint32_t stridePolygon = 510; // 2 * 255
     for(uint32_t p = 0, offsetP = 0; p < (uint32_t)*numPolygons; p++, offsetP += stridePolygon){
-        numVertices[p] = (uint8_t)msg.polygons[p].vertices.size();
-        numVertices[p] = (uint8_t)(((uint32_t)numVertices[p] > maxNumVertices) ? maxNumVertices : (uint32_t)numVertices[p]);
+        numVertices[p] = (uint8_t)(((uint32_t)msg.polygons[p].vertices.size() > maxNumVertices) ? maxNumVertices : (uint32_t)msg.polygons[p].vertices.size());
         ids[p] = msg.polygons[p].polygonID;
         classifications[p] = msg.polygons[p].classification;
         velocitiesNorth[p] = msg.polygons[p].velocityNorth;
