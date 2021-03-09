@@ -6,7 +6,7 @@ SOURCES_CPP   += $(call rwildcard,../../source,*.cpp)
 
 # Build settings
 CPP           := g++
-CPP_FLAGS     := -std=c++17 -Wall -Wextra -Ofast
+CPP_FLAGS     := -std=c++17 -Wall -Wextra -O3
 LIBS_WINDOWS  := -lstdc++ -lpthread -lwsock32
 LIBS_LINUX    := -lstdc++ -lpthread
 INCLUDE_PATHS := -I/usr/include -I/usr/local/include -I../../source/InterModuleProtocol
