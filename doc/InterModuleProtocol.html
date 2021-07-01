@@ -2,7 +2,7 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Version
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-Version 20200919
+Version 20210701
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--></div></td></tr></table></header><div id="wrapper">
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -38,13 +38,12 @@ Version 20200919
 
 <a class="label" name="BasicMessageStructure"></a>
 <h1>Basic Message Structure</h1>
-    <p>A message consists of an ID, a timestamp, the actual data that depends on the ID, and a 16-bit checksum.
+    <p>A message consists of an ID, a timestamp and the actual data that depends on the ID.
     The basic protocol structure is as follows.</p>
     <table class="Table1"><tr>
         <th class="Table1" width="100">ID<br>(1 byte)</th>
         <th class="Table1" width="100">timestamp<br>(5 bytes)</th>
         <th class="Table1">data<br>(N bytes)</th>
-        <th class="Table1" width="100">CRC-16<br>(2 bytes)</th>
     </tr></table>
 
     <h2>ID</h2>
@@ -56,9 +55,6 @@ Version 20200919
 
     <h2>data</h2>
     <p>The actual data of variable length that depends on the ID.</p>
-
-    <h2>CRC-16</h2>
-    <p>A CCIT_ZERO checksum is used (Polynomial: 0x1021, initial value: 0x0000, Final Xor Value: 0x0000, no reflected input, no reflected result).</p>
 
     <div class="note-green">
 	<h3 class="note-green">Endianess</h3>
@@ -73,7 +69,6 @@ Version 20200919
     <table class="Table1"><tr>
         <th class="Table1" width="100">ID (0x00)<br>(1 byte)</th>
         <th class="Table1">timestamp<br>(5 bytes)</th>
-        <th class="Table1" width="100">CRC-16<br>(2 bytes)</th>
     </tr></table>
 
     <h2>ID</h2>
@@ -81,9 +76,6 @@ Version 20200919
 
     <h2>timestamp</h2>
     <p>The timestamp, given in UTC seconds of the day, that indicates the validity time of the message. It's an unsigned value (5 bytes) with a resolution of 100 nanoseconds.</p>
-
-    <h2>CRC-16</h2>
-    <p>A CCIT_ZERO checksum is used (Polynomial: 0x1021, initial value: 0x0000, Final Xor Value: 0x0000, no reflected input, no reflected result).</p>
 
 
 <a class="label" name="InfoResponseMessage"></a>
@@ -99,7 +91,6 @@ Version 20200919
         <th class="Table1" width="120">zero-terminator<br>(1 byte)</th>
         <th class="Table1">description<br>(N bytes)</th>
         <th class="Table1" width="120">zero-terminator<br>(1 byte)</th>
-        <th class="Table1" width="100">CRC-16<br>(2 bytes)</th>
     </tr></table>
 
     <h2>ID</h2>
@@ -126,19 +117,16 @@ Version 20200919
     </tr></table>
 
     <h2>vehicleName</h2>
-    <p>The text string (UTF-8) that indicates the vehicle name. Make sure that there is not null character ('\0') in the text.</p>
+    <p>The text string (UTF-8) that indicates the vehicle name. Make sure that there is no null character ('\0') in the text.</p>
 
     <h2>zero-terminator</h2>
     <p>The zero-terminator denotes the end of the vehicleName string and is always 0x00.</p>
 
     <h2>description</h2>
-    <p>The text string (UTF-8) that indicates an optional description string. Make sure that there is not null character ('\0') in the text.</p>
+    <p>The text string (UTF-8) that indicates an optional description string. Make sure that there is no null character ('\0') in the text.</p>
 
     <h2>zero-terminator</h2>
     <p>The zero-terminator denotes the end of the description string and is always 0x00.</p>
-
-    <h2>CRC-16</h2>
-    <p>A CCIT_ZERO checksum is used (Polynomial: 0x1021, initial value: 0x0000, Final Xor Value: 0x0000, no reflected input, no reflected result).</p>
 
 
 <a class="label" name="GuidanceMessage"></a>
@@ -150,7 +138,6 @@ Version 20200919
         <th class="Table1" width="100">timestamp<br>(5 bytes)</th>
         <th class="Table1" width="100">configuration<br>(4 bytes)</th>
         <th class="Table1">guidance state<br>(N bytes)</th>
-        <th class="Table1" width="100">CRC-16<br>(2 bytes)</th>
     </tr></table>
 
     <div class="note-blue">
@@ -276,9 +263,6 @@ Version 20200919
         <tr><td class="Table2">sideSlipAngle<td class="Table2">int32 / double</td><td class="Table1">Side slip angle in radians, range [-pi, +pi). The side slip angle is defined to be (courseOverGround - orientationYaw).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
     </table>
 
-    <h2>CRC-16</h2>
-    <p>A CCIT_ZERO checksum is used (Polynomial: 0x1021, initial value: 0x0000, Final Xor Value: 0x0000, no reflected input, no reflected result).</p>
-
 
 <a class="label" name="LogMessage"></a>
 <h1>(0x4C) Log Message</h1>
@@ -290,7 +274,6 @@ Version 20200919
         <th class="Table1" width="100">color<br>(3 bytes)</th>
         <th class="Table1">text<br>(N bytes)</th>
         <th class="Table1" width="120">zero-terminator<br>(1 byte)</th>
-        <th class="Table1" width="100">CRC-16<br>(2 bytes)</th>
     </tr></table>
 
     <div class="note-red">
@@ -313,13 +296,10 @@ Version 20200919
     </tr></table>
 
     <h2>text</h2>
-    <p>The text string (UTF-8). Make sure that there is not null character ('\0') in the text.</p>
+    <p>The text string (UTF-8). Make sure that there is no null character ('\0') in the text.</p>
 
     <h2>zero-terminator</h2>
     <p>The zero-terminator denotes the end of the text string and is always 0x00.</p>
-
-    <h2>CRC-16</h2>
-    <p>A CCIT_ZERO checksum is used (Polynomial: 0x1021, initial value: 0x0000, Final Xor Value: 0x0000, no reflected input, no reflected result).</p>
 
 
 <a class="label" name="NavigationMessage"></a>
@@ -331,7 +311,6 @@ Version 20200919
         <th class="Table1" width="100">timestamp<br>(5 bytes)</th>
         <th class="Table1" width="100">configuration<br>(4 bytes)</th>
         <th class="Table1">navigation state<br>(N bytes)</th>
-        <th class="Table1" width="100">CRC-16<br>(2 bytes)</th>
     </tr></table>
 
     <div class="note-blue">
@@ -457,9 +436,6 @@ Version 20200919
         <tr><td class="Table2">sideSlipAngle<td class="Table2">int32 / double</td><td class="Table1">Side slip angle in radians, range [-pi, +pi). The side slip angle is defined to be (courseOverGround - orientationYaw).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
     </table>
 
-    <h2>CRC-16</h2>
-    <p>A CCIT_ZERO checksum is used (Polynomial: 0x1021, initial value: 0x0000, Final Xor Value: 0x0000, no reflected input, no reflected result).</p>
-
 
 <a class="label" name="ConvexPolygonMessage"></a>
 <h1>(0x50) Convex Polygon Message</h1>
@@ -501,7 +477,6 @@ Version 20200919
                 </tr>
             </table>
         </th>
-        <th class="Table1" width="100">CRC-16<br>(2 bytes)</th>
     </tr></table>
 
     <div class="note-red">
@@ -576,11 +551,7 @@ Version 20200919
         <h2>y coordinate</h2>
         <p>The y coordinate of the vertex in meters with respect to the geographic origin (originLLA). The datatype is <i>float</i>.</p>
         </div>
-
     </div>
-
-    <h2>CRC-16</h2>
-    <p>A CCIT_ZERO checksum is used (Polynomial: 0x1021, initial value: 0x0000, Final Xor Value: 0x0000, no reflected input, no reflected result).</p>
 
 
 <a class="label" name="GuidanceTrajectoryMessage"></a>
@@ -612,7 +583,6 @@ Version 20200919
                 </tr>
             </table>
         </th>
-        <th class="Table1" width="100">CRC-16<br>(2 bytes)</th>
     </tr></table>
 
     <h2>ID</h2>
@@ -753,8 +723,5 @@ Version 20200919
         <tr><td class="Table2">angleOfAttack<td class="Table2">int32 / double</td><td class="Table1">Angle of attack in radians, range [-pi, +pi). The angle of attack is defined to be atan2(velocityDown, speedOverGround).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
         <tr><td class="Table2">sideSlipAngle<td class="Table2">int32 / double</td><td class="Table1">Side slip angle in radians, range [-pi, +pi). The side slip angle is defined to be (courseOverGround - orientationYaw).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
     </table>
-
-    <h2>CRC-16</h2>
-    <p>A CCIT_ZERO checksum is used (Polynomial: 0x1021, initial value: 0x0000, Final Xor Value: 0x0000, no reflected input, no reflected result).</p>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--></div></div><script src="core/jquery.min.js"></script><script src="core/common.js"></script><script src="core/includeHTML.js"></script></body></html>
