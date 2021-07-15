@@ -9,7 +9,7 @@ void CreateDriverGuidanceTrajectoryEncode(void){}
 
 void DeleteDriverGuidanceTrajectoryEncode(void){}
 
-void OutputDriverGuidanceTrajectoryEncode(uint8_t* bytes, uint32_t* length, uint32_t maxNumBytes, double timestamp, int32_t startTimeYearUTC, int32_t startTimeMonthUTC, int32_t startTimeDayUTC, double startTimeSecondsUTC, double deltaTime, uint8_t* representation, uint8_t* availability, double* stateMatrix, uint32_t numPoints){
+void OutputDriverGuidanceTrajectoryEncode(uint8_t* bytes, uint32_t* length, uint32_t maxNumBytes, double timestamp, int32_t startTimeYearUTC, int32_t startTimeMonthUTC, int32_t startTimeDayUTC, double startTimeSecondsUTC, double deltaTime, uint8_t* representation, uint8_t* availability, double* stateMatrix, uint32_t maxNumPoints, uint32_t numPoints){
     IMP::GuidanceTrajectoryMessage msg;
     msg.timestamp = timestamp;
     msg.startTimeYearUTC = (startTimeYearUTC > 32767) ? 32767: startTimeYearUTC;
@@ -41,7 +41,7 @@ void OutputDriverGuidanceTrajectoryEncode(uint8_t* bytes, uint32_t* length, uint
     msg.configuration.angleOfAttack.available = (bool)availability[11];
     msg.configuration.sideSlipAngle.representation = representation[10] ? IMP::STATE_CONFIGURATION_REPRESENTATION_8BYTES : IMP::STATE_CONFIGURATION_REPRESENTATION_4BYTES;
     msg.configuration.sideSlipAngle.available = (bool)availability[12];
-    for(uint32_t n = 0, offset = 0; n < numPoints; n++, offset += 32){
+    for(uint32_t n = 0, offset = 0; (n < numPoints) && (n < maxNumPoints); n++, offset += 32){
         msg.points.push_back(IMP::State());
         msg.points.back().positionLatitude = stateMatrix[offset];
         msg.points.back().positionLongitude = stateMatrix[offset + 1];

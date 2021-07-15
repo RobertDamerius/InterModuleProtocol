@@ -28,7 +28,8 @@ extern void DeleteDriverGuidanceTrajectoryEncode(void);
  *  @param [in] representation Array of 11 representations (0: 4 byte, 1: 8 byte).
  *  @param [in] availability Array of 13 availability flags (0: not available, 1: availabe (z), 2: available (xy), 3: available(xyz)).
  *  @param [in] stateMatrix 32-by-N state matrix in column-major order containing the state points with N being the number of state points.
- *  @param [in] numPoints Number of state points inside the state matrix.
+ *  @param [in] maxNumPoints Maximum number of state points inside the state matrix.
+ *  @param [in] numPoints Number of state points inside the state matrix to be encoded.
  */
-extern void OutputDriverGuidanceTrajectoryEncode(uint8_t* bytes, uint32_t* length, uint32_t maxNumBytes, double timestamp, int32_t startTimeYearUTC, int32_t startTimeMonthUTC, int32_t startTimeDayUTC, double startTimeSecondsUTC, double deltaTime, uint8_t* representation, uint8_t* availability, double* stateMatrix, uint32_t numPoints);
+extern void OutputDriverGuidanceTrajectoryEncode(uint8_t* bytes, uint32_t* length, uint32_t maxNumBytes, double timestamp, int32_t startTimeYearUTC, int32_t startTimeMonthUTC, int32_t startTimeDayUTC, double startTimeSecondsUTC, double deltaTime, uint8_t* representation, uint8_t* availability, double* stateMatrix, uint32_t maxNumPoints, uint32_t numPoints);
 
