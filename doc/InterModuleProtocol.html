@@ -439,8 +439,11 @@ Version 20210701
 
 <a class="label" name="ConvexPolygonMessage"></a>
 <h1>(0x50) Convex Polygon Message</h1>
-    <p>A convex polygon message is used to transfer a variable number of convex polygons. A polygon should constist of at least three vertices.
-    There are static and dynamic polygons. Each vertex has an x and a y coordinate, which is given in meters. The polygon message contains a geographic position
+    <p>A convex polygon message is used to transfer a variable number of convex polygons. A polygon must constist of at least three vertices.
+    An edge is indicated by two following vertices. Multiple vertices must not lie on one line, e.g. the angle of two subsequent edges must not be the same.
+    There must be no duplicated vertices.
+    There are static and dynamic polygons. Each vertex has an x and a y coordinate, which is given in meters. The x-axis points to north while
+    the y-axis points to east. The polygon message contains a geographic position
     that denotes the origin to which the vertex coordinates refer.</p>
     <table class="Table1"><tr>
         <th class="Table1" width="80">ID (0x50)<br>(1 byte)</th>
@@ -546,10 +549,10 @@ Version 20210701
         </tr></table>
 
         <h2>x coordinate</h2>
-        <p>The x coordinate of the vertex in meters with respect to the geographic origin (originLLA). The datatype is <i>float</i>.</p>
+        <p>The x coordinate (north-direction) of the vertex in meters with respect to the geographic origin (originLLA). The datatype is <i>float</i>.</p>
 
         <h2>y coordinate</h2>
-        <p>The y coordinate of the vertex in meters with respect to the geographic origin (originLLA). The datatype is <i>float</i>.</p>
+        <p>The y coordinate (east-direction) of the vertex in meters with respect to the geographic origin (originLLA). The datatype is <i>float</i>.</p>
         </div>
     </div>
 
