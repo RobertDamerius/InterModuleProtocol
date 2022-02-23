@@ -439,10 +439,12 @@ Version 20210701
 
 <a class="label" name="ConvexPolygonMessage"></a>
 <h1>(0x50) Convex Polygon Message</h1>
-    <p>A convex polygon message is used to transfer a variable number of convex polygons. A polygon must constist of at least three vertices.
+    <p>A convex polygon message is used to transfer a variable number of convex polygons. A convex polygon must constist of at least three vertices.
     An edge is indicated by two following vertices. Multiple vertices must not lie on one line, e.g. the angle of two subsequent edges must not be the same.
     There must be no duplicated vertices.
-    There are static and dynamic polygons. Each vertex has an x and a y coordinate, which is given in meters. The x-axis points to north while
+    There are static and dynamic polygons.
+    All velocities of a dynamic polygon refer to the mean value of all vertices of this polygon.
+    Each vertex has an x and a y coordinate, which is given in meters. The x-axis points to north while
     the y-axis points to east. The polygon message contains a geographic position
     that denotes the origin to which the vertex coordinates refer.</p>
     <table class="Table1"><tr>
@@ -495,10 +497,10 @@ Version 20210701
     <p>The timestamp, given in UTC seconds of the day, that indicates the validity time of the message. It's an unsigned value (5 bytes) with a resolution of 100 nanoseconds.</p>
 
     <h2>maxSegmentIndex</h2>
-    <p>A byte indicating the maximum segment index number. That is the maximum number of polgon messages belonging to a polygon dataset is (maxSegmentIndex + 1).</p>
+    <p>The maximum zero-based segment index that indicates the last message segment. That is, the maximum number of polgon messages belonging to a polygon dataset is (maxSegmentIndex + 1).</p>
 
     <h2>segmentIndex</h2>
-    <p>A byte indicating the current segment index number.</p>
+    <p>The current zero-based segment index for this message.</p>
 
     <h2>originLLA</h2>
     <p>Geographic position (latitude, longitude, altitude) used as origin for all polygons of the message. Note, that the network byte order is big-endian.</p>
@@ -529,7 +531,8 @@ Version 20210701
 
     <h2>velocities</h2>
     <p>The velocities are only available if the polygon is a dynamic polygon, that is if the most significant bit
-    of the classification is set. The format is as follows.</p>
+    of the classification is set. All velocities of a polygon refer to the mean value of all vertices of this polygon.
+    The format is as follows.</p>
     <table class="Table1"><tr><th class="Table1" width="220">Name</th><th class="Table1" width="160">Data type</th><th class="Table1">Description</th></tr>
         <tr><td class="Table2">velocityNorth<td class="Table2">float</td><td class="Table1">Velocity in north direction in meters per second.</td></tr>
         <tr><td class="Table2">velocityEast<td class="Table2">float</td><td class="Table1">Velocity in east direction in meters per second.</td></tr>
