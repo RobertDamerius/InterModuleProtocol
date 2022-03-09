@@ -30,7 +30,7 @@ Take a look at the [C++ examples](examples/cpp/).
 
 
 ## Getting Started (MATLAB/Simulink)
-If you want to use the IMP for MATLAB/Simulink (at least R2018b), first make sure that you have set up a compiler.
+If you want to use the IMP for MATLAB/Simulink (at least R2020b), first make sure that you have set up a compiler.
 Simply call the script `install.m` to install the Simulink library.
 This compiles the driver blocks.
 The library path is added to the MATLAB path and then saved.
