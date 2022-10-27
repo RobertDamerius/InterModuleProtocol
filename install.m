@@ -2,10 +2,10 @@ fprintf('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 % Add directories to MATLAB path
 addpath('lib');
-addpath(['lib' filesep 'driver']);
+addpath(['lib' filesep 'src']);
 
 % Compile sources
-run(['lib' filesep 'driver' filesep 'build.m']);
+run(['lib' filesep 'src' filesep 'build.m']);
 
 % Save path
 str = input('Save path? [y]:  ','s');

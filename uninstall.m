@@ -2,7 +2,7 @@ fprintf('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 % Remove directories from MATLAB path
 rmpath('lib');
-rmpath(['lib' filesep 'driver']);
+rmpath(['lib' filesep 'src']);
 
 % Save path
 savepath;
