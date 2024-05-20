@@ -1,0 +1,733 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Inter-Module Protocol</title><style>* { margin: 0; padding: 0;}body { color: #474a54; text-align: justify; font-family: Calibri, sans-serif; font-size: 1.1em; background-repeat: no-repeat; background-attachment: fixed; background-size: auto 100%;}a.label { padding-top: 68px; visibility: hidden;}header { position: fixed; z-index: 101; top: 0; width: 100%; min-height: 68px; max-height: 68px; font-size: 20px; font-family: "Lato", Arial, sans-serif; display: block; border-bottom: #bcc3ca 1px solid; background-color: #2f7eb2;}div.header-title{ font-size: 30px; font-weight: 500; color: #fff; text-shadow: 0px 0px 2px rgba(0,0,0,0.74); padding-left: 16px;}div.header-description{ font-size: 18px; font-weight: 400; color: #fff; text-shadow: 0px 0px 2px rgba(0,0,0,0.74); padding-left: 16px;}ul.nav-ul { font-size: 14px; font-family: Helvetica, Arial, sans-serif; text-align: left; list-style-type: none;}li.nav-label { font-size: 11px; font-weight: bold; padding-left: 16px; padding-top: 5px; color: #2385c8; text-shadow: 0px 0px 2px #000;}li.nav-li a { display: block; color: #d9d9d9; padding-left: 16px; padding-top: 4px; padding-bottom: 4px; font-size: 15px; text-decoration: none;}li.nav-li a:hover { background-color: #373c42; text-decoration: none; color: #eee;}li.nav-divider { margin: 20px 0px; height: 1px; background-color: #444; border-bottom: 1px solid #333; margin-right: 16px; margin-left: 16px;} #wrapper { position: absolute; width: 90%;}#wrapper-sidebar { position: fixed; left: 0px; width: 300px; border-right: #333 2px solid; top: 64px; bottom: 0px; overflow-y: auto; background-color: #25282b; z-index: 100; padding-top: 20px;}#wrapper-content { position: absolute; left: 300px; right: 0px; border-left: #eee 2px solid; top: 64px; padding: 20px; background-color: rgba(255, 255, 255, 0.9); line-height: 1.2em;} span { color: #474a54;}img.picture { border: 1px solid #eee; box-shadow: 0px 0px 1px 1px #cecece;}.codefont { font-family: Courier New;}span.codefont { color: #474a54; font-family: Courier New;}p.todo { background-color: #ff0; color: #f00; font-weight: bold;}a { text-decoration: none; color: #2673bf;}a:hover, a:focus, a:active { color: #990909;}a, a:hover { transition: color 0.2s ease-in-out 0s; transition-property: color; transition-duration: 0.2s; transition-timing-function: ease-in-out; transition-delay: 0s;}h1 { border-bottom: 2px solid #4288a2; font-size: 1.6em; margin-bottom: 4px; font-weight: 700; color: #444; padding-top: 40px; padding-bottom: 4px;}h2 { font-size: 1.2em; font-weight: 700; color: #555; padding-top: 10px; padding-bottom: 4px;}.description { color: #606574; font-style: italic; margin-top: -6px;}table.Table1 { width: 100%; margin-bottom: 16px; border-left: 1px solid #ccc; border-top: 1px solid #ccc; border-spacing: 0; border-collapse: collapse;}th.Table1, td.Table1, td.Table2 { padding: 3px 6px;}td.Table2 {font-family: Courier-New;} th.Table1 { background-color: #f7f7f7; text-align: left; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; color: #474a54; font-weight: 600;}td.Table1, td.Table2 { border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; background-color: #fff; vertical-align: top; color: #474a54;}pre.code { margin-left: 16px; margin-right: 16px; margin-bottom: 8px; margin-top: 8px; padding: 8px; text-align: left; background-color: #f5f5f5; color: #333; border-radius: 4px; font-family: Courier New; font-size: 14px; border: 1px solid #ccc; line-height: 1.2em; word-break: brea-all; word-wrap: break-word;}div.note-blue, div.note-green, div.note-orange, div.note-red { padding: 12px; margin-bottom: 22px; box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.1);}div.note-blue { border-left: 4px solid #5bc0de; background-color: #f4f8fa;}div.note-green { border-left: 4px solid #50af51; background-color: #f3f8f3;}div.note-orange { border-left: 4px solid #f0ad4e; background-color: #fcf8f2;}div.note-red { border-left: 4px solid #d9534f; background-color: #fdf7f7;}h3.note-blue, h3.note-green, h3.note-orange, h3.note-red { font-weight: bold; margin-bottom: 4px; text-shadow: 0px 0px 1px rgba(0,0,0,0.18);}h3.note-blue { color: #5bc0de;}h3.note-green { color: #50af51;}h3.note-orange { color: #f0ad4e;}h3.note-red { color: #d9534f;}p { margin-bottom: 16px;}</style></head><body><header><table border="0" width="100%"><tr><td><div class="header-title">Inter-Module Protocol</div><div class="header-description">
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Version
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+Version 20220902
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--></div></td></tr></table></header><div id="wrapper">
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Navigation
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="wrapper-sidebar">
+<ul class="nav-ul">
+	<li class="nav-label">INTER MODULE PROTOCOL</li>
+	<li class="nav-li"><a href="#Overview">Overview</a></li>
+	<li class="nav-li"><a href="#BasicMessageStructure">Basic Message Structure</a></li>
+	<li class="nav-divider"></li>
+	<li class="nav-label">MESSAGES</li>
+	<li class="nav-li"><a href="#InfoRequestMessage">(0x00) Info Request Message</a></li>
+	<li class="nav-li"><a href="#InfoResponseMessage">(0x01) Info Response Message</a></li>
+	<li class="nav-li"><a href="#GuidanceMessage">(0x47) Guidance Message</a></li>
+	<li class="nav-li"><a href="#LogMessage">(0x4C) Log Message</a></li>
+	<li class="nav-li"><a href="#NavigationMessage">(0x4E) Navigation Message</a></li>
+	<li class="nav-li"><a href="#ConvexPolygonMessage">(0x50) Convex Polygon Message</a></li>
+	<li class="nav-li"><a href="#GuidanceTrajectoryMessage">(0x54) Guidance Trajectory Message</a></li>
+</ul>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--><div id="wrapper-content">
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Content
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<a class="label" name="Overview"></a>
+<h1>Overview</h1>
+    <p>The intermodule protocol is designed to exchange basic messages between modules of a GNC system. Only
+    generic messages are defined that are independent of the application and therefore independent of the
+    vehicle type. All further vehicle-specific messages must still be developed additionally.
+    </p>
+
+<a class="label" name="BasicMessageStructure"></a>
+<h1>Basic Message Structure</h1>
+    <p>A message consists of an ID, a timestamp and the actual data that depends on the ID.
+    The basic protocol structure is as follows.</p>
+    <table class="Table1"><tr>
+        <th class="Table1" width="100">ID<br>(1 byte)</th>
+        <th class="Table1" width="100">timestamp<br>(5 bytes)</th>
+        <th class="Table1">data<br>(N bytes)</th>
+    </tr></table>
+
+    <h2>ID</h2>
+    <p>The ID indicates the type of the message.</p>
+
+    <h2>timestamp</h2>
+    <p>The timestamp indicates the validity time of the message. It's given as the UTC second of the day with a resolution
+    of 100 nanoseconds. A time of 7 o'clock (UTC) therefore results in a value of 7*3600*10000000=252000000000 (0x3AAC5ED800).</p>
+
+    <h2>data</h2>
+    <p>The actual data of variable length that depends on the ID.</p>
+
+    <div class="note-green">
+	<h3 class="note-green">Endianess</h3>
+	The network byte order is used which is defined to always be <b>big-endian</b> (MSB first).
+	</div>
+
+
+<a class="label" name="InfoRequestMessage"></a>
+<h1>(0x00) Info Request Message</h1>
+    <p>The info request message is used to request information from a module. A module belongs
+    to a vehicle. A module that receives this message should respond with an <a href="#InfoResponseMessage">info response message</a>.</p>
+    <table class="Table1"><tr>
+        <th class="Table1" width="100">ID (0x00)<br>(1 byte)</th>
+        <th class="Table1">timestamp<br>(5 bytes)</th>
+    </tr></table>
+
+    <h2>ID</h2>
+    <p>The ID is set to 0x00.</p>
+
+    <h2>timestamp</h2>
+    <p>The timestamp, given in UTC seconds of the day, that indicates the validity time of the message. It's an unsigned value (5 bytes) with a resolution of 100 nanoseconds.</p>
+
+
+<a class="label" name="InfoResponseMessage"></a>
+<h1>(0x01) Info Response Message</h1>
+    <p>The info response message is the response to an <a href="#InfoRequestMessage">info request message</a>.
+    A module belongs to a vehicle and sends this message to indicate its belonging to the vehicle.</p>
+    <table class="Table1"><tr>
+        <th class="Table1" width="100">ID (0x01)<br>(1 byte)</th>
+        <th class="Table1" width="100">timestamp<br>(5 bytes)</th>
+        <th class="Table1" width="100">dimension<br>(12 bytes)</th>
+        <th class="Table1" width="100">offset<br>(12 bytes)</th>
+        <th class="Table1">vehicleName<br>(N bytes)</th>
+        <th class="Table1" width="120">zero-terminator<br>(1 byte)</th>
+        <th class="Table1">description<br>(N bytes)</th>
+        <th class="Table1" width="120">zero-terminator<br>(1 byte)</th>
+    </tr></table>
+
+    <h2>ID</h2>
+    <p>The ID is set to 0x01.</p>
+
+    <h2>timestamp</h2>
+    <p>The timestamp, given in UTC seconds of the day, that indicates the validity time of the message. It's an unsigned value (5 bytes) with a resolution of 100 nanoseconds.</p>
+
+    <h2>dimension</h2>
+    <p>The dimension of the default vehicle cuboid in meters (body-frame). The datatype is <i>float</i> and the format is as follows.</p>
+    <table class="Table1" style="width: 360px;"><tr>
+        <th class="Table1" width="120">x dimension<br>(4 bytes)</th>
+        <th class="Table1" width="120">y dimension<br>(4 bytes)</th>
+        <th class="Table1" width="120">z dimension<br>(4 bytes)</th>
+    </tr></table>
+
+    <h2>offset</h2>
+    <p>The offset of the default vehicle cuboid in meters (body-frame). It's the position of the cuboid with respect
+    to the origin of the body-frame. The datatype is <i>float</i> and the format is as follows.</p>
+    <table class="Table1" style="width: 360px;"><tr>
+        <th class="Table1" width="120">x offset<br>(4 bytes)</th>
+        <th class="Table1" width="120">y offset<br>(4 bytes)</th>
+        <th class="Table1" width="120">z offset<br>(4 bytes)</th>
+    </tr></table>
+
+    <h2>vehicleName</h2>
+    <p>The text string (UTF-8) that indicates the vehicle name. Make sure that there is no null character ('\0') in the text.</p>
+
+    <h2>zero-terminator</h2>
+    <p>The zero-terminator denotes the end of the vehicleName string and is always 0x00.</p>
+
+    <h2>description</h2>
+    <p>The text string (UTF-8) that indicates an optional description string. Make sure that there is no null character ('\0') in the text.</p>
+
+    <h2>zero-terminator</h2>
+    <p>The zero-terminator denotes the end of the description string and is always 0x00.</p>
+
+
+<a class="label" name="GuidanceMessage"></a>
+<h1>(0x47) Guidance Message</h1>
+    <p>The guidance message is used to transfer a guidance state. The state consists of 32 values. However, a configuration bitfield specifies which
+    of the state values are present and if a 4-byte or 8-byte representation is used. The message structure is as follows.</p>
+    <table class="Table1"><tr>
+        <th class="Table1" width="100">ID (0x47)<br>(1 byte)</th>
+        <th class="Table1" width="100">timestamp<br>(5 bytes)</th>
+        <th class="Table1" width="100">configuration<br>(4 bytes)</th>
+        <th class="Table1">guidance state<br>(N bytes)</th>
+    </tr></table>
+
+    <div class="note-blue">
+	<h3 class="note-blue">Note</h3>
+	This message has the same structure as the <a href="#NavigationMessage">Navigation Message</a>. The only difference is the value for the ID.
+	</div>
+
+    <h2>ID</h2>
+    <p>The ID is set to 0x47 which is the ASCII-code for 'G'.</p>
+
+    <h2>timestamp</h2>
+    <p>The timestamp, given in UTC seconds of the day, that indicates the validity time of the message. It's an unsigned value (5 bytes) with a resolution of 100 nanoseconds.</p>
+
+    <h2>configuration</h2>
+    <p>A bitfield that indicates the format of the subsequent guidance state data. The configuration specifies which state values are contained in the
+    current message and with which byte representation they are present. The bitfield is as follows.</p>
+    <table class="Table1"><tr><th class="Table1" width="50">Bit</th><th class="Table1" width="340">Name</th><th class="Table1" width="50">Value</th><th class="Table1">Description</th></tr>
+        <tr><td class="Table2">0</td><td class="Table2">positionLLARepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for geographic position (<b>L</b>atitude, <b>L</b>ongitude, <b>A</b>ltitude).</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for geographic position.</td></tr>
+        <tr><td class="Table2">1,2</td><td class="Table2">positionLLAAvailability</td><td class="Table2">00</td><td class="Table1">Geographic position not available.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">01</td><td class="Table1">Geographic position available for one dimension: altitude.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">10</td><td class="Table1">Geographic position available for two dimensions: latitude, longitude.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">11</td><td class="Table1">Geographic position available for three dimensions: latitude, longitude, altitude.</td></tr>
+        <tr><td class="Table2">3</td><td class="Table2">positionNEDRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for NED position (<b>N</b>orth, <b>E</b>ast, <b>D</b>own).</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for NED position.</td></tr>
+        <tr><td class="Table2">4,5</td><td class="Table2">positionNEDAvailability</td><td class="Table2">00</td><td class="Table1">NED position not available.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">01</td><td class="Table1">NED position available for one dimension: down.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">10</td><td class="Table1">NED position available for two dimensions: north, east.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">11</td><td class="Table1">NED position available for three dimensions: north, east, down.</td></tr>
+        <tr><td class="Table2">6</td><td class="Table2">orientationQuaternionRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for unit quaternion.</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                                   </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for unit quaternion.</td></tr>
+        <tr><td class="Table2">7</td><td class="Table2">orientationQuaternionAvailability</td><td class="Table2">0</td><td class="Table1">Unit quaternion not available.</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                                 </td><td class="Table2">1</td><td class="Table1">Unit quaternion available.</td></tr>
+        <tr><td class="Table2">8</td><td class="Table2">orientationRollPitchYawRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for euler angles.</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                                     </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for euler angles.</td></tr>
+        <tr><td class="Table2">9,10</td><td class="Table2">orientationRollPitchYawAvailability</td><td class="Table2">00</td><td class="Table1">Euler angles not available.</td></tr>
+        <tr><td class="Table2">    </td><td class="Table2">                                   </td><td class="Table2">01</td><td class="Table1">Euler angles available for one dimension: yaw.</td></tr>
+        <tr><td class="Table2">    </td><td class="Table2">                                   </td><td class="Table2">10</td><td class="Table1">Euler angles available for two dimensions: roll, pitch.</td></tr>
+        <tr><td class="Table2">    </td><td class="Table2">                                   </td><td class="Table2">11</td><td class="Table1">Euler angles available for three dimensions: roll, pitch, yaw.</td></tr>
+        <tr><td class="Table2">11</td><td class="Table2">velocityNEDUVWRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for translational velocities (earth-fixed (NED) and body-fixed (UVW)).</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                            </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for translational velocities.</td></tr>
+        <tr><td class="Table2">12,13</td><td class="Table2">velocityNEDUVWAvailabilityE</td><td class="Table2">00</td><td class="Table1">Earth-fixed translational velocity not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">01</td><td class="Table1">Earth-fixed translational velocity available for one dimension: down.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">10</td><td class="Table1">Earth-fixed translational velocity available for two dimensions: north, east.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">11</td><td class="Table1">Earth-fixed translational velocity available for three dimensions: north, east, down.</td></tr>
+        <tr><td class="Table2">14,15</td><td class="Table2">velocityNEDUVWAvailabilityB</td><td class="Table2">00</td><td class="Table1">Body-fixed translational velocity not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">01</td><td class="Table1">Body-fixed translational velocity available for one dimension: w.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">10</td><td class="Table1">Body-fixed translational velocity available for two dimensions: u, v.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">11</td><td class="Table1">Body-fixed translational velocity available for three dimensions: u, v, w.</td></tr>
+        <tr><td class="Table2">16</td><td class="Table2">velocityPQRRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for rotational velocities (body-fixed (PQR)).</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for rotational velocities (body-fixed (PQR)).</td></tr>
+        <tr><td class="Table2">17,18</td><td class="Table2">velocityPQRAvailability</td><td class="Table2">00</td><td class="Table1">Body-fixed rotational velocity not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                       </td><td class="Table2">01</td><td class="Table1">Body-fixed rotational velocity available for one dimension: r.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                       </td><td class="Table2">10</td><td class="Table1">Body-fixed rotational velocity available for two dimension: p, q.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                       </td><td class="Table2">11</td><td class="Table1">Body-fixed rotational velocity available for three dimension: p, q, r.</td></tr>
+        <tr><td class="Table2">19</td><td class="Table2">accelerationNEDXYZRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for accelerations (earth-fixed (NED) and body-fixed(XYZ)).</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                                </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for accelerations.</td></tr>
+        <tr><td class="Table2">20,21</td><td class="Table2">accelerationNEDXYZAvailabilityE</td><td class="Table2">00</td><td class="Table1">Earth-fixed acceleration not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">01</td><td class="Table1">Earth-fixed acceleration available for one dimension: down.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">10</td><td class="Table1">Earth-fixed acceleration available for two dimensions: north, east.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">11</td><td class="Table1">Earth-fixed acceleration available for three dimensions: north, east, down.</td></tr>
+        <tr><td class="Table2">22,23</td><td class="Table2">accelerationNEDXYZAvailabilityB</td><td class="Table2">00</td><td class="Table1">Body-fixed acceleration not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">01</td><td class="Table1">Body-fixed acceleration available for one dimension: Z.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">10</td><td class="Table1">Body-fixed acceleration available for two dimension: X, Y.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">11</td><td class="Table1">Body-fixed acceleration available for three dimension: X, Y, Z.</td></tr>
+        <tr><td class="Table2">24</td><td class="Table2">courseOverGroundRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for course over ground.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                              </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for course over ground.</td></tr>
+        <tr><td class="Table2">25</td><td class="Table2">courseOverGroundAvailability</td><td class="Table2">0</td><td class="Table1">Course over ground not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                            </td><td class="Table2">1</td><td class="Table1">Course over ground available.</td></tr>
+        <tr><td class="Table2">26</td><td class="Table2">speedOverGroundRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for speed over ground.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                             </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for speed over ground.</td></tr>
+        <tr><td class="Table2">27</td><td class="Table2">speedOverGroundAvailability</td><td class="Table2">0</td><td class="Table1">Speed over ground not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                           </td><td class="Table2">1</td><td class="Table1">Speed over ground available.</td></tr>
+        <tr><td class="Table2">28</td><td class="Table2">angleOfAttackRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for angle of attack.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                           </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for angle of attack.</td></tr>
+        <tr><td class="Table2">29</td><td class="Table2">angleOfAttackAvailability</td><td class="Table2">0</td><td class="Table1">Angle of attack not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">Angle of attack available.</td></tr>
+        <tr><td class="Table2">30</td><td class="Table2">sideSlipAngleRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for side slip angle.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                           </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for side slip angle.</td></tr>
+        <tr><td class="Table2">31</td><td class="Table2">sideSlipAngleAvailability</td><td class="Table2">0</td><td class="Table1">Side slip angle not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">Side slip angle available.</td></tr>
+    </table>
+
+    <h2>guidance state</h2>
+    <p>The data of the guidance state depends on the configuration bitfield. All values are added one after the other in the
+    same order in which they were configured with the bitfield. If an availability bit is set to zero (not available) then
+    the corresponding state values won't be added. The corresponding representation bit indicates whether a value has a size
+    of 4 or 8 bytes. <i>double</i> is always used for an 8-byte representation. A 4-byte representation uses either a <i>float</i> for
+    infinite state values or an <i>int32</i> for finite state values to increase the resolution. The following table shows all
+    state values in the correct order. Note, that the network byte order is big-endian!</p>
+    <table class="Table1"><tr><th class="Table1" width="220">Name</th><th class="Table1" width="160">Data types [4 / 8]</th><th class="Table1">Description</th></tr>
+        <tr><td class="Table2">positionLatitude<td class="Table2">int32 / double</td><td class="Table1">Geographic position (latitude in radians) according to WGS84, range [-pi/2, +pi/2].<br><b>int32 scaling</b>: [-pi/2, +pi/2] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">positionLongitude<td class="Table2">int32 / double</td><td class="Table1">Geographic position (latitude in radians) according to WGS84, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">positionAltitude<td class="Table2">float / double</td><td class="Table1">Geographic position (altitude in meters) according to WGS84, positive upwards.</td></tr>
+        <tr><td class="Table2">positionNorth<td class="Table2">float / double</td><td class="Table1">Position in north direction of earth-fixed frame in meters.</td></tr>
+        <tr><td class="Table2">positionEast<td class="Table2">float / double</td><td class="Table1">Position in east direction of earth-fixed frame in meters.</td></tr>
+        <tr><td class="Table2">positionDown<td class="Table2">float / double</td><td class="Table1">Position in down direction of earth-fixed frame in meters, positive downwards.</td></tr>
+        <tr><td class="Table2">orientationQuaternionW<td class="Table2">int32 / double</td><td class="Table1">Scalar part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationQuaternionX<td class="Table2">int32 / double</td><td class="Table1">X component of the vector part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationQuaternionY<td class="Table2">int32 / double</td><td class="Table1">Y component of the vector part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationQuaternionZ<td class="Table2">int32 / double</td><td class="Table1">Z component of the vector part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationRoll<td class="Table2">int32 / double</td><td class="Table1">Roll angle (euler angle around X axis) in radians according to the ZYX-convention, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationPitch<td class="Table2">int32 / double</td><td class="Table1">Pitch angle (euler angle around Y axis) in radians according to the ZYX-convention, range [-pi/2, +pi/2].<br><b>int32 scaling</b>: [-pi/2, +pi/2] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationYaw<td class="Table2">int32 / double</td><td class="Table1">Yaw angle (euler angle around Z axis) in radians according to the ZYX-convention, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">velocityNorth<td class="Table2">float / double</td><td class="Table1">Velocity in north direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityEast<td class="Table2">float / double</td><td class="Table1">Velocity in east direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityDown<td class="Table2">float / double</td><td class="Table1">Velocity in down direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityU<td class="Table2">float / double</td><td class="Table1">Velocity in X direction of the body frame in meters per second.</td></tr>
+        <tr><td class="Table2">velocityV<td class="Table2">float / double</td><td class="Table1">Velocity in Y direction of the body frame in meters per second.</td></tr>
+        <tr><td class="Table2">velocityW<td class="Table2">float / double</td><td class="Table1">Velocity in Z direction of the body frame in meters per second.</td></tr>
+        <tr><td class="Table2">velocityP<td class="Table2">float / double</td><td class="Table1">Rotational velocity around X axis of the body frame in radians per second.</td></tr>
+        <tr><td class="Table2">velocityQ<td class="Table2">float / double</td><td class="Table1">Rotational velocity around Y axis of the body frame in radians per second.</td></tr>
+        <tr><td class="Table2">velocityR<td class="Table2">float / double</td><td class="Table1">Rotational velocity around Z axis of the body frame in radians per second.</td></tr>
+        <tr><td class="Table2">accelerationNorth<td class="Table2">float / double</td><td class="Table1">Acceleration in north direction in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationEast<td class="Table2">float / double</td><td class="Table1">Acceleration in east direction in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationDown<td class="Table2">float / double</td><td class="Table1">Acceleration in down direction in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationX<td class="Table2">float / double</td><td class="Table1">Acceleration in X direction of the body frame in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationY<td class="Table2">float / double</td><td class="Table1">Acceleration in Y direction of the body frame in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationZ<td class="Table2">float / double</td><td class="Table1">Acceleration in Z direction of the body frame in meters per square-second.</td></tr>
+        <tr><td class="Table2">courseOverGround<td class="Table2">int32 / double</td><td class="Table1">Course over ground in radians, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">speedOverGround<td class="Table2">float / double</td><td class="Table1">Speed over ground in meters per second, <b>always &gt;= 0</b>.</td></tr>
+        <tr><td class="Table2">angleOfAttack<td class="Table2">int32 / double</td><td class="Table1">Angle of attack in radians, range [-pi, +pi). The angle of attack is defined to be atan2(velocityDown, speedOverGround).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">sideSlipAngle<td class="Table2">int32 / double</td><td class="Table1">Side slip angle in radians, range [-pi, +pi). The side slip angle is defined to be (courseOverGround - orientationYaw).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+    </table>
+
+
+<a class="label" name="LogMessage"></a>
+<h1>(0x4C) Log Message</h1>
+    <p>The log message is used to provide text logs. The message structure is as follows.
+    </p>
+    <table class="Table1"><tr>
+        <th class="Table1" width="100">ID (0x4C)<br>(1 byte)</th>
+        <th class="Table1" width="100">timestamp<br>(5 bytes)</th>
+        <th class="Table1" width="100">color<br>(3 bytes)</th>
+        <th class="Table1">text<br>(N bytes)</th>
+        <th class="Table1" width="120">zero-terminator<br>(1 byte)</th>
+    </tr></table>
+
+    <div class="note-red">
+	<h3 class="note-red">Maximum UDP message length</h3>
+	A UDP message can contain at most 65507 bytes. The maximum number of bytes in the text is then limited to 65497.
+	</div>
+
+    <h2>ID</h2>
+    <p>The ID is set to 0x4C which is the ASCII-code for 'L'.</p>
+
+    <h2>timestamp</h2>
+    <p>The timestamp, given in UTC seconds of the day, that indicates the validity time of the message. It's an unsigned value (5 bytes) with a resolution of 100 nanoseconds.</p>
+
+    <h2>color</h2>
+    <p>The color (RGB) that should be used to display the text. The format is as follows.</p>
+    <table class="Table1" style="width: 240px;"><tr>
+        <th class="Table1" width="80">red<br>(1 byte)</th>
+        <th class="Table1" width="80">green<br>(1 byte)</th>
+        <th class="Table1" width="80">blue<br>(1 byte)</th>
+    </tr></table>
+
+    <h2>text</h2>
+    <p>The text string (UTF-8). Make sure that there is no null character ('\0') in the text.</p>
+
+    <h2>zero-terminator</h2>
+    <p>The zero-terminator denotes the end of the text string and is always 0x00.</p>
+
+
+<a class="label" name="NavigationMessage"></a>
+<h1>(0x4E) Navigation Message</h1>
+    <p>The navigation message is used to transfer a navigation state. The state consists of 32 values. However, a configuration bitfield specifies which
+    of the state values are present and if a 4-byte or 8-byte representation is used. The message structure is as follows.</p>
+    <table class="Table1"><tr>
+        <th class="Table1" width="100">ID (0x4E)<br>(1 byte)</th>
+        <th class="Table1" width="100">timestamp<br>(5 bytes)</th>
+        <th class="Table1" width="100">configuration<br>(4 bytes)</th>
+        <th class="Table1">navigation state<br>(N bytes)</th>
+    </tr></table>
+
+    <div class="note-blue">
+	<h3 class="note-blue">Note</h3>
+	This message has the same structure as the <a href="#GuidanceMessage">Guidance Message</a>. The only difference is the value for the ID.
+	</div>
+
+    <h2>ID</h2>
+    <p>The ID is set to 0x4E which is the ASCII-code for 'N'.</p>
+
+    <h2>timestamp</h2>
+    <p>The timestamp, given in UTC seconds of the day, that indicates the validity time of the message. It's an unsigned value (5 bytes) with a resolution of 100 nanoseconds.</p>
+
+    <h2>configuration</h2>
+    <p>A bitfield that indicates the format of the subsequent navigation state data. The configuration specifies which state values are contained in the
+    current message and with which byte representation they are present. The bitfield is as follows.</p>
+    <table class="Table1"><tr><th class="Table1" width="50">Bit</th><th class="Table1" width="340">Name</th><th class="Table1" width="50">Value</th><th class="Table1">Description</th></tr>
+        <tr><td class="Table2">0</td><td class="Table2">positionLLARepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for geographic position (<b>L</b>atitude, <b>L</b>ongitude, <b>A</b>ltitude).</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for geographic position.</td></tr>
+        <tr><td class="Table2">1,2</td><td class="Table2">positionLLAAvailability</td><td class="Table2">00</td><td class="Table1">Geographic position not available.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">01</td><td class="Table1">Geographic position available for one dimension: altitude.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">10</td><td class="Table1">Geographic position available for two dimensions: latitude, longitude.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">11</td><td class="Table1">Geographic position available for three dimensions: latitude, longitude, altitude.</td></tr>
+        <tr><td class="Table2">3</td><td class="Table2">positionNEDRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for NED position (<b>N</b>orth, <b>E</b>ast, <b>D</b>own).</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for NED position.</td></tr>
+        <tr><td class="Table2">4,5</td><td class="Table2">positionNEDAvailability</td><td class="Table2">00</td><td class="Table1">NED position not available.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">01</td><td class="Table1">NED position available for one dimension: down.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">10</td><td class="Table1">NED position available for two dimensions: north, east.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">11</td><td class="Table1">NED position available for three dimensions: north, east, down.</td></tr>
+        <tr><td class="Table2">6</td><td class="Table2">orientationQuaternionRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for unit quaternion.</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                                   </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for unit quaternion.</td></tr>
+        <tr><td class="Table2">7</td><td class="Table2">orientationQuaternionAvailability</td><td class="Table2">0</td><td class="Table1">Unit quaternion not available.</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                                 </td><td class="Table2">1</td><td class="Table1">Unit quaternion available.</td></tr>
+        <tr><td class="Table2">8</td><td class="Table2">orientationRollPitchYawRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for euler angles.</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                                     </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for euler angles.</td></tr>
+        <tr><td class="Table2">9,10</td><td class="Table2">orientationRollPitchYawAvailability</td><td class="Table2">00</td><td class="Table1">Euler angles not available.</td></tr>
+        <tr><td class="Table2">    </td><td class="Table2">                                   </td><td class="Table2">01</td><td class="Table1">Euler angles available for one dimension: yaw.</td></tr>
+        <tr><td class="Table2">    </td><td class="Table2">                                   </td><td class="Table2">10</td><td class="Table1">Euler angles available for two dimensions: roll, pitch.</td></tr>
+        <tr><td class="Table2">    </td><td class="Table2">                                   </td><td class="Table2">11</td><td class="Table1">Euler angles available for three dimensions: roll, pitch, yaw.</td></tr>
+        <tr><td class="Table2">11</td><td class="Table2">velocityNEDUVWRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for translational velocities (earth-fixed (NED) and body-fixed (UVW)).</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                            </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for translational velocities.</td></tr>
+        <tr><td class="Table2">12,13</td><td class="Table2">velocityNEDUVWAvailabilityE</td><td class="Table2">00</td><td class="Table1">Earth-fixed translational velocity not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">01</td><td class="Table1">Earth-fixed translational velocity available for one dimension: down.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">10</td><td class="Table1">Earth-fixed translational velocity available for two dimensions: north, east.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">11</td><td class="Table1">Earth-fixed translational velocity available for three dimensions: north, east, down.</td></tr>
+        <tr><td class="Table2">14,15</td><td class="Table2">velocityNEDUVWAvailabilityB</td><td class="Table2">00</td><td class="Table1">Body-fixed translational velocity not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">01</td><td class="Table1">Body-fixed translational velocity available for one dimension: w.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">10</td><td class="Table1">Body-fixed translational velocity available for two dimensions: u, v.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">11</td><td class="Table1">Body-fixed translational velocity available for three dimensions: u, v, w.</td></tr>
+        <tr><td class="Table2">16</td><td class="Table2">velocityPQRRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for rotational velocities (body-fixed (PQR)).</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for rotational velocities (body-fixed (PQR)).</td></tr>
+        <tr><td class="Table2">17,18</td><td class="Table2">velocityPQRAvailability</td><td class="Table2">00</td><td class="Table1">Body-fixed rotational velocity not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                       </td><td class="Table2">01</td><td class="Table1">Body-fixed rotational velocity available for one dimension: r.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                       </td><td class="Table2">10</td><td class="Table1">Body-fixed rotational velocity available for two dimension: p, q.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                       </td><td class="Table2">11</td><td class="Table1">Body-fixed rotational velocity available for three dimension: p, q, r.</td></tr>
+        <tr><td class="Table2">19</td><td class="Table2">accelerationNEDXYZRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for accelerations (earth-fixed (NED) and body-fixed(XYZ)).</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                                </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for accelerations.</td></tr>
+        <tr><td class="Table2">20,21</td><td class="Table2">accelerationNEDXYZAvailabilityE</td><td class="Table2">00</td><td class="Table1">Earth-fixed acceleration not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">01</td><td class="Table1">Earth-fixed acceleration available for one dimension: down.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">10</td><td class="Table1">Earth-fixed acceleration available for two dimensions: north, east.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">11</td><td class="Table1">Earth-fixed acceleration available for three dimensions: north, east, down.</td></tr>
+        <tr><td class="Table2">22,23</td><td class="Table2">accelerationNEDXYZAvailabilityB</td><td class="Table2">00</td><td class="Table1">Body-fixed acceleration not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">01</td><td class="Table1">Body-fixed acceleration available for one dimension: Z.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">10</td><td class="Table1">Body-fixed acceleration available for two dimension: X, Y.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">11</td><td class="Table1">Body-fixed acceleration available for three dimension: X, Y, Z.</td></tr>
+        <tr><td class="Table2">24</td><td class="Table2">courseOverGroundRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for course over ground.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                              </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for course over ground.</td></tr>
+        <tr><td class="Table2">25</td><td class="Table2">courseOverGroundAvailability</td><td class="Table2">0</td><td class="Table1">Course over ground not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                            </td><td class="Table2">1</td><td class="Table1">Course over ground available.</td></tr>
+        <tr><td class="Table2">26</td><td class="Table2">speedOverGroundRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for speed over ground.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                             </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for speed over ground.</td></tr>
+        <tr><td class="Table2">27</td><td class="Table2">speedOverGroundAvailability</td><td class="Table2">0</td><td class="Table1">Speed over ground not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                           </td><td class="Table2">1</td><td class="Table1">Speed over ground available.</td></tr>
+        <tr><td class="Table2">28</td><td class="Table2">angleOfAttackRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for angle of attack.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                           </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for angle of attack.</td></tr>
+        <tr><td class="Table2">29</td><td class="Table2">angleOfAttackAvailability</td><td class="Table2">0</td><td class="Table1">Angle of attack not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">Angle of attack available.</td></tr>
+        <tr><td class="Table2">30</td><td class="Table2">sideSlipAngleRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for side slip angle.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                           </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for side slip angle.</td></tr>
+        <tr><td class="Table2">31</td><td class="Table2">sideSlipAngleAvailability</td><td class="Table2">0</td><td class="Table1">Side slip angle not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">Side slip angle available.</td></tr>
+    </table>
+
+    <h2>navigation state</h2>
+    <p>The data of the navigation state depends on the configuration bitfield. All values are added one after the other in the
+    same order in which they were configured with the bitfield. If an availability bit is set to zero (not available) then
+    the corresponding state values won't be added. The corresponding representation bit indicates whether a value has a size
+    of 4 or 8 bytes. <i>double</i> is always used for an 8-byte representation. A 4-byte representation uses either a <i>float</i> for
+    infinite state values or an <i>int32</i> for finite state values to increase the resolution. The following table shows all
+    state values in the correct order. Note, that the network byte order is big-endian!</p>
+    <table class="Table1"><tr><th class="Table1" width="220">Name</th><th class="Table1" width="160">Data types [4 / 8]</th><th class="Table1">Description</th></tr>
+        <tr><td class="Table2">positionLatitude<td class="Table2">int32 / double</td><td class="Table1">Geographic position (latitude in radians) according to WGS84, range [-pi/2, +pi/2].<br><b>int32 scaling</b>: [-pi/2, +pi/2] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">positionLongitude<td class="Table2">int32 / double</td><td class="Table1">Geographic position (latitude in radians) according to WGS84, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">positionAltitude<td class="Table2">float / double</td><td class="Table1">Geographic position (altitude in meters) according to WGS84, positive upwards.</td></tr>
+        <tr><td class="Table2">positionNorth<td class="Table2">float / double</td><td class="Table1">Position in north direction of earth-fixed frame in meters.</td></tr>
+        <tr><td class="Table2">positionEast<td class="Table2">float / double</td><td class="Table1">Position in east direction of earth-fixed frame in meters.</td></tr>
+        <tr><td class="Table2">positionDown<td class="Table2">float / double</td><td class="Table1">Position in down direction of earth-fixed frame in meters, positive downwards.</td></tr>
+        <tr><td class="Table2">orientationQuaternionW<td class="Table2">int32 / double</td><td class="Table1">Scalar part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationQuaternionX<td class="Table2">int32 / double</td><td class="Table1">X component of the vector part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationQuaternionY<td class="Table2">int32 / double</td><td class="Table1">Y component of the vector part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationQuaternionZ<td class="Table2">int32 / double</td><td class="Table1">Z component of the vector part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationRoll<td class="Table2">int32 / double</td><td class="Table1">Roll angle (euler angle around X axis) in radians according to the ZYX-convention, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationPitch<td class="Table2">int32 / double</td><td class="Table1">Pitch angle (euler angle around Y axis) in radians according to the ZYX-convention, range [-pi/2, +pi/2].<br><b>int32 scaling</b>: [-pi/2, +pi/2] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationYaw<td class="Table2">int32 / double</td><td class="Table1">Yaw angle (euler angle around Z axis) in radians according to the ZYX-convention, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">velocityNorth<td class="Table2">float / double</td><td class="Table1">Velocity in north direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityEast<td class="Table2">float / double</td><td class="Table1">Velocity in east direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityDown<td class="Table2">float / double</td><td class="Table1">Velocity in down direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityU<td class="Table2">float / double</td><td class="Table1">Velocity in X direction of the body frame in meters per second.</td></tr>
+        <tr><td class="Table2">velocityV<td class="Table2">float / double</td><td class="Table1">Velocity in Y direction of the body frame in meters per second.</td></tr>
+        <tr><td class="Table2">velocityW<td class="Table2">float / double</td><td class="Table1">Velocity in Z direction of the body frame in meters per second.</td></tr>
+        <tr><td class="Table2">velocityP<td class="Table2">float / double</td><td class="Table1">Rotational velocity around X axis of the body frame in radians per second.</td></tr>
+        <tr><td class="Table2">velocityQ<td class="Table2">float / double</td><td class="Table1">Rotational velocity around Y axis of the body frame in radians per second.</td></tr>
+        <tr><td class="Table2">velocityR<td class="Table2">float / double</td><td class="Table1">Rotational velocity around Z axis of the body frame in radians per second.</td></tr>
+        <tr><td class="Table2">accelerationNorth<td class="Table2">float / double</td><td class="Table1">Acceleration in north direction in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationEast<td class="Table2">float / double</td><td class="Table1">Acceleration in east direction in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationDown<td class="Table2">float / double</td><td class="Table1">Acceleration in down direction in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationX<td class="Table2">float / double</td><td class="Table1">Acceleration in X direction of the body frame in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationY<td class="Table2">float / double</td><td class="Table1">Acceleration in Y direction of the body frame in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationZ<td class="Table2">float / double</td><td class="Table1">Acceleration in Z direction of the body frame in meters per square-second.</td></tr>
+        <tr><td class="Table2">courseOverGround<td class="Table2">int32 / double</td><td class="Table1">Course over ground in radians, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">speedOverGround<td class="Table2">float / double</td><td class="Table1">Speed over ground in meters per second, <b>always &gt;= 0</b>.</td></tr>
+        <tr><td class="Table2">angleOfAttack<td class="Table2">int32 / double</td><td class="Table1">Angle of attack in radians, range [-pi, +pi). The angle of attack is defined to be atan2(velocityDown, speedOverGround).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">sideSlipAngle<td class="Table2">int32 / double</td><td class="Table1">Side slip angle in radians, range [-pi, +pi). The side slip angle is defined to be (courseOverGround - orientationYaw).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+    </table>
+
+
+<a class="label" name="ConvexPolygonMessage"></a>
+<h1>(0x50) Convex Polygon Message</h1>
+    <p>A convex polygon message is used to transfer a variable number of convex polygons. A convex polygon must constist of at least three vertices.
+    An edge is indicated by two following vertices. Multiple vertices must not lie on one line, e.g. the angle of two subsequent edges must not be the same.
+    There must be no duplicated vertices.
+    There are static and dynamic polygons.
+    All velocities of a dynamic polygon refer to the mean value of all vertices of this polygon.
+    Each vertex has an x and a y coordinate, which is given in meters. The x-axis points to north while
+    the y-axis points to east. The polygon message contains a geographic position
+    that denotes the origin to which the vertex coordinates refer.</p>
+    <table class="Table1"><tr>
+        <th class="Table1" width="80">ID (0x50)<br>(1 byte)</th>
+        <th class="Table1" width="80">timestamp<br>(5 bytes)</th>
+        <th class="Table1" width="140">maxSegmentIndex<br>(1 byte)</th>
+        <th class="Table1" width="110">segmentIndex<br>(1 byte)</th>
+        <th class="Table1" width="80">originLLA<br>(24 bytes)</th>
+        <th class="Table1" width="100">numPolygons<br>(2 bytes)</th>
+        <th class="Table1">
+            <table width="100%">
+                <tr>
+                    <td width="110px">polygon data<br>(N bytes)</td>
+                    <td>
+                        <table class="Table1" style="margin-bottom: 0px;">
+                            </tr>
+                                <td class="Table1" width="720px">Convex Polygon 1<br>
+                                    <table class="Table1" style="margin-bottom: 0px;">
+                                        <tr>
+                                            <td class="Table1" width="70px">polygonID<br>(2 bytes)</td>
+                                            <td class="Table1" width="90px">classification<br>(1 byte)</td>
+                                            <td class="Table1" width="100px">velocities<br>(12 bytes)</td>
+                                            <td class="Table1" width="100px">numVertices<br>(1 byte)</td>
+                                            <td class="Table1" width="70px">x1, y1<br>(8 bytes)</td>
+                                            <td class="Table1" width="70px">x2, y2<br>(8 bytes)</td>
+                                            <td class="Table1">...</td>
+                                            <td class="Table1" width="70px">xV, yV<br>(8 bytes)</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="Table1">Convex Polygon P<br>...</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </th>
+    </tr></table>
+
+    <div class="note-red">
+	<h3 class="note-red">Maximum UDP message length</h3>
+	A UDP message can contain at most 65507 bytes. It may be necessary to split a polygon dataset into several messages.
+    For this purpose there is a segment counter in the polygon message.
+	</div>
+
+    <h2>ID</h2>
+    <p>The ID is set to 0x50 which is the ASCII-code for 'P'.</p>
+
+    <h2>timestamp</h2>
+    <p>The timestamp, given in UTC seconds of the day, that indicates the validity time of the message. It's an unsigned value (5 bytes) with a resolution of 100 nanoseconds.</p>
+
+    <h2>maxSegmentIndex</h2>
+    <p>The maximum zero-based segment index that indicates the last message segment. That is, the maximum number of polgon messages belonging to a polygon dataset is (maxSegmentIndex + 1).</p>
+
+    <h2>segmentIndex</h2>
+    <p>The current zero-based segment index for this message.</p>
+
+    <h2>originLLA</h2>
+    <p>Geographic position (latitude, longitude, altitude) used as origin for all polygons of the message. Note, that the network byte order is big-endian.</p>
+    <table class="Table1"><tr><th class="Table1" width="220">Name</th><th class="Table1" width="160">Data type</th><th class="Table1">Description</th></tr>
+        <tr><td class="Table2">latitude<td class="Table2">double</td><td class="Table1">Geographic position (latitude in radians) according to WGS84, range [-pi/2, +pi/2].</td></tr>
+        <tr><td class="Table2">longitude<td class="Table2">double</td><td class="Table1">Geographic position (latitude in radians) according to WGS84, range [-pi, +pi).</td></tr>
+        <tr><td class="Table2">altitude<td class="Table2">double</td><td class="Table1">Geographic position (altitude in meters) according to WGS84, positive upwards.</td></tr>
+    </table>
+
+    <h2>numPolygons</h2>
+    <p>A 16-bit unsigned value that indicates the number of polygons that are contained in the polygon data field. Note, that the network byte order is big-endian.</p>
+
+    <h2>polygon data</h2>
+    <p>The number of polygons is indicated by numPolygons. All polygons are specified one after the other.
+    The data for a polygon contains the following data.</p>
+
+    <div style="padding-left: 64px;">
+    <h2>polygonID</h2>
+    <p>A unique 16-bit number that identifies the polygon. The datatype is <i>uint16</i>.</p>
+
+    <h2>classification</h2>
+    <p>An 8-bit value that indicates a classification of the polygon. The most significant bit indicates
+    whether the polygon is a static or a dynamic polygon. All values in range [0, 127] denote static polygons
+    and all values in range [128,255] denote dynamic polygons. The actual classifications in the corresponding
+    ranges are not specified and can be defined depending on the application. Note that the following velocities
+    are only sent for dynamic polygons.
+    </p>
+
+    <h2>velocities</h2>
+    <p>The velocities are only available if the polygon is a dynamic polygon, that is if the most significant bit
+    of the classification is set. All velocities of a polygon refer to the mean value of all vertices of this polygon.
+    The format is as follows.</p>
+    <table class="Table1"><tr><th class="Table1" width="220">Name</th><th class="Table1" width="160">Data type</th><th class="Table1">Description</th></tr>
+        <tr><td class="Table2">velocityNorth<td class="Table2">float</td><td class="Table1">Velocity in north direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityEast<td class="Table2">float</td><td class="Table1">Velocity in east direction in meters per second.</td></tr>
+        <tr><td class="Table2">yawRate<td class="Table2">float</td><td class="Table1">Rotational velocity around downward axis of the navigation frame in radians per second.</td></tr>
+    </table>
+
+    <h2>numVertices</h2>
+    <p>The number of vertices that are contained in the convex polygon. The datatype is <i>uint8</i>.</p>
+
+    <h2>vertex data</h2>
+    <p>The number of vertices is indicated by numVertices. All vertices are specified one after the other.
+    The verticies are given in mathematically positive order, that is around the downward axis. The data for a vertex is as follows.</p>
+        <div style="padding-left: 64px;">
+        <table class="Table1" style="width: 240px;"><tr>
+            <th class="Table1" width="120">x coordinate<br>(4 bytes)</th>
+            <th class="Table1" width="120">y coordinate<br>(4 bytes)</th>
+        </tr></table>
+
+        <h2>x coordinate</h2>
+        <p>The x coordinate (north-direction) of the vertex in meters with respect to the geographic origin (originLLA). The datatype is <i>float</i>.</p>
+
+        <h2>y coordinate</h2>
+        <p>The y coordinate (east-direction) of the vertex in meters with respect to the geographic origin (originLLA). The datatype is <i>float</i>.</p>
+        </div>
+    </div>
+
+
+<a class="label" name="GuidanceTrajectoryMessage"></a>
+<h1>(0x54) Guidance Trajectory Message</h1>
+    <p>A guidance trajectory message is used to transfer a reference state trajectory that contains a variable number of state points.
+    The message contains a time (UTC) that specifies the start time of the trajectory. A time difference indicates the time interval
+    between two state points. If this time difference is set to zero, then this message corresponds to a guidance waypoint message,
+    where each state point then corresponds to one waypoint. The message structure is as follows.</p>
+    <table class="Table1"><tr>
+        <th class="Table1" width="100">ID (0x54)<br>(1 byte)</th>
+        <th class="Table1" width="100">timestamp<br>(5 bytes)</th>
+        <th class="Table1" width="100">start time<br>(8 bytes)</th>
+        <th class="Table1" width="100">delta time<br>(4 bytes)</th>
+        <th class="Table1" width="100">numPoints<br>(2 bytes)</th>
+        <th class="Table1" width="100">configuration<br>(4 bytes)</th>
+        <th class="Table1">
+            <table width="100%">
+                <tr>
+                    <td width="110px">point data<br>(N bytes)</td>
+                    <td>
+                        <table class="Table1" style="margin-bottom: 0px;">
+                            </tr>
+                                <td class="Table1" width="310px">Point 1<br>(State vector according to configuration)</td>
+                                <td class="Table1">...</td>
+                                <td class="Table1" width="310px">Point P<br>(State vector according to configuration)</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </th>
+    </tr></table>
+
+    <h2>ID</h2>
+    <p>The ID is set to 0x54 which is the ASCII-code for 'T'.</p>
+
+    <h2>timestamp</h2>
+    <p>The timestamp, given in UTC seconds of the day, that indicates the validity time of the message. It's an unsigned value (5 bytes) with a resolution of 100 nanoseconds.</p>
+
+    <h2>start time</h2>
+    <p>The start time indicates the beginning of the trajectory. This corresponds to the validity time of the first state point. The time is specified as a UTC date
+    and a UTC timestamp and has the following structure.</p>
+    <table class="Table1" style="width: 440px;"><tr>
+        <th class="Table1" width="220">UTC date (year, month, day)<br>(3 bytes)</th>
+        <th class="Table1" width="220">UTC timestamp<br>(5 bytes)</th>
+    </tr></table>
+    <p>The UTC date format is as follows.</p>
+    <table class="Table1"><tr><th class="Table1" width="80">Bit</th><th class="Table1" width="180">Name</th><th class="Table1" width="100">Range</th><th class="Table1">Description</th></tr>
+        <tr><td class="Table2">0 ... 3</td><td class="Table2">utcDay</td><td class="Table2">[1,31]</td><td class="Table1">4-bit value that indicates the day.</td></tr>
+        <tr><td class="Table2">4 ... 8</td><td class="Table2">utcMonth</td><td class="Table2">[1,12]</td><td class="Table1">5-bit value that indicates the month.</td></tr>
+        <tr><td class="Table2">9 ... 23</td><td class="Table2">utcYear</td><td class="Table2">[0,32767]</td><td class="Table1">15-bit value that indicates the year.</td></tr>
+    </table>
+    <p>The UTC timestamp is a 5-byte value that has the same format as the timestamp of the message.</p>
+
+    <h2>delta time</h2>
+    <p>The time difference in seconds between two state points of the reference trajectory. If this time difference is set to zero, then this message corresponds to a guidance waypoint message,
+    where each state point then corresponds to one waypoint. The datatype is <i>float</i>. Note, that the network byte order is big-endian.</p>
+
+    <h2>numPoints</h2>
+    <p>The number of points that are contained in the trajectory. The datatype is <i>uint16</i>.</p>
+
+    <h2>configuration</h2>
+    <p>A bitfield that indicates the format of the subsequent trajectory state data. The configuration specifies which state values are contained in each state point of the
+    current message and with which byte representation they are present. The bitfield is as follows.</p>
+    <table class="Table1"><tr><th class="Table1" width="50">Bit</th><th class="Table1" width="340">Name</th><th class="Table1" width="50">Value</th><th class="Table1">Description</th></tr>
+        <tr><td class="Table2">0</td><td class="Table2">positionLLARepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for geographic position (<b>L</b>atitude, <b>L</b>ongitude, <b>A</b>ltitude).</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for geographic position.</td></tr>
+        <tr><td class="Table2">1,2</td><td class="Table2">positionLLAAvailability</td><td class="Table2">00</td><td class="Table1">Geographic position not available.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">01</td><td class="Table1">Geographic position available for one dimension: altitude.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">10</td><td class="Table1">Geographic position available for two dimensions: latitude, longitude.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">11</td><td class="Table1">Geographic position available for three dimensions: latitude, longitude, altitude.</td></tr>
+        <tr><td class="Table2">3</td><td class="Table2">positionNEDRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for NED position (<b>N</b>orth, <b>E</b>ast, <b>D</b>own).</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for NED position.</td></tr>
+        <tr><td class="Table2">4,5</td><td class="Table2">positionNEDAvailability</td><td class="Table2">00</td><td class="Table1">NED position not available.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">01</td><td class="Table1">NED position available for one dimension: down.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">10</td><td class="Table1">NED position available for two dimensions: north, east.</td></tr>
+        <tr><td class="Table2">   </td><td class="Table2">                       </td><td class="Table2">11</td><td class="Table1">NED position available for three dimensions: north, east, down.</td></tr>
+        <tr><td class="Table2">6</td><td class="Table2">orientationQuaternionRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for unit quaternion.</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                                   </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for unit quaternion.</td></tr>
+        <tr><td class="Table2">7</td><td class="Table2">orientationQuaternionAvailability</td><td class="Table2">0</td><td class="Table1">Unit quaternion not available.</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                                 </td><td class="Table2">1</td><td class="Table1">Unit quaternion available.</td></tr>
+        <tr><td class="Table2">8</td><td class="Table2">orientationRollPitchYawRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for euler angles.</td></tr>
+        <tr><td class="Table2"> </td><td class="Table2">                                     </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for euler angles.</td></tr>
+        <tr><td class="Table2">9,10</td><td class="Table2">orientationRollPitchYawAvailability</td><td class="Table2">00</td><td class="Table1">Euler angles not available.</td></tr>
+        <tr><td class="Table2">    </td><td class="Table2">                                   </td><td class="Table2">01</td><td class="Table1">Euler angles available for one dimension: yaw.</td></tr>
+        <tr><td class="Table2">    </td><td class="Table2">                                   </td><td class="Table2">10</td><td class="Table1">Euler angles available for two dimensions: roll, pitch.</td></tr>
+        <tr><td class="Table2">    </td><td class="Table2">                                   </td><td class="Table2">11</td><td class="Table1">Euler angles available for three dimensions: roll, pitch, yaw.</td></tr>
+        <tr><td class="Table2">11</td><td class="Table2">velocityNEDUVWRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for translational velocities (earth-fixed (NED) and body-fixed (UVW)).</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                            </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for translational velocities.</td></tr>
+        <tr><td class="Table2">12,13</td><td class="Table2">velocityNEDUVWAvailabilityE</td><td class="Table2">00</td><td class="Table1">Earth-fixed translational velocity not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">01</td><td class="Table1">Earth-fixed translational velocity available for one dimension: down.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">10</td><td class="Table1">Earth-fixed translational velocity available for two dimensions: north, east.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">11</td><td class="Table1">Earth-fixed translational velocity available for three dimensions: north, east, down.</td></tr>
+        <tr><td class="Table2">14,15</td><td class="Table2">velocityNEDUVWAvailabilityB</td><td class="Table2">00</td><td class="Table1">Body-fixed translational velocity not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">01</td><td class="Table1">Body-fixed translational velocity available for one dimension: w.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">10</td><td class="Table1">Body-fixed translational velocity available for two dimensions: u, v.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                           </td><td class="Table2">11</td><td class="Table1">Body-fixed translational velocity available for three dimensions: u, v, w.</td></tr>
+        <tr><td class="Table2">16</td><td class="Table2">velocityPQRRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for rotational velocities (body-fixed (PQR)).</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for rotational velocities (body-fixed (PQR)).</td></tr>
+        <tr><td class="Table2">17,18</td><td class="Table2">velocityPQRAvailability</td><td class="Table2">00</td><td class="Table1">Body-fixed rotational velocity not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                       </td><td class="Table2">01</td><td class="Table1">Body-fixed rotational velocity available for one dimension: r.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                       </td><td class="Table2">10</td><td class="Table1">Body-fixed rotational velocity available for two dimension: p, q.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                       </td><td class="Table2">11</td><td class="Table1">Body-fixed rotational velocity available for three dimension: p, q, r.</td></tr>
+        <tr><td class="Table2">19</td><td class="Table2">accelerationNEDXYZRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for accelerations (earth-fixed (NED) and body-fixed(XYZ)).</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                                </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for accelerations.</td></tr>
+        <tr><td class="Table2">20,21</td><td class="Table2">accelerationNEDXYZAvailabilityE</td><td class="Table2">00</td><td class="Table1">Earth-fixed acceleration not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">01</td><td class="Table1">Earth-fixed acceleration available for one dimension: down.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">10</td><td class="Table1">Earth-fixed acceleration available for two dimensions: north, east.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">11</td><td class="Table1">Earth-fixed acceleration available for three dimensions: north, east, down.</td></tr>
+        <tr><td class="Table2">22,23</td><td class="Table2">accelerationNEDXYZAvailabilityB</td><td class="Table2">00</td><td class="Table1">Body-fixed acceleration not available.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">01</td><td class="Table1">Body-fixed acceleration available for one dimension: Z.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">10</td><td class="Table1">Body-fixed acceleration available for two dimension: X, Y.</td></tr>
+        <tr><td class="Table2">     </td><td class="Table2">                               </td><td class="Table2">11</td><td class="Table1">Body-fixed acceleration available for three dimension: X, Y, Z.</td></tr>
+        <tr><td class="Table2">24</td><td class="Table2">courseOverGroundRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for course over ground.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                              </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for course over ground.</td></tr>
+        <tr><td class="Table2">25</td><td class="Table2">courseOverGroundAvailability</td><td class="Table2">0</td><td class="Table1">Course over ground not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                            </td><td class="Table2">1</td><td class="Table1">Course over ground available.</td></tr>
+        <tr><td class="Table2">26</td><td class="Table2">speedOverGroundRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (float) for speed over ground.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                             </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for speed over ground.</td></tr>
+        <tr><td class="Table2">27</td><td class="Table2">speedOverGroundAvailability</td><td class="Table2">0</td><td class="Table1">Speed over ground not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                           </td><td class="Table2">1</td><td class="Table1">Speed over ground available.</td></tr>
+        <tr><td class="Table2">28</td><td class="Table2">angleOfAttackRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for angle of attack.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                           </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for angle of attack.</td></tr>
+        <tr><td class="Table2">29</td><td class="Table2">angleOfAttackAvailability</td><td class="Table2">0</td><td class="Table1">Angle of attack not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">Angle of attack available.</td></tr>
+        <tr><td class="Table2">30</td><td class="Table2">sideSlipAngleRepresentation</td><td class="Table2">0</td><td class="Table1">4-byte representation (int32) for side slip angle.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                           </td><td class="Table2">1</td><td class="Table1">8-byte representation (double) for side slip angle.</td></tr>
+        <tr><td class="Table2">31</td><td class="Table2">sideSlipAngleAvailability</td><td class="Table2">0</td><td class="Table1">Side slip angle not available.</td></tr>
+        <tr><td class="Table2">  </td><td class="Table2">                         </td><td class="Table2">1</td><td class="Table1">Side slip angle available.</td></tr>
+    </table>
+
+    <h2>point data</h2>
+    <p>The number of points is indicated by numPoints. All points are specified one after the other. The data of a point depends on the configuration bitfield.
+    All values of a state are added one after the other in the same order in which they were configured with the bitfield. If an availability bit is set to zero
+    (not available) then the corresponding state values won't be added. The corresponding representation bit indicates whether a value has a size of 4 or 8 bytes.
+    double is always used for an 8-byte representation. A 4-byte representation uses either a float for infinite state values or an int32 for finite state values
+    to increase the resolution. The following table shows all state values in the correct order. Note, that the network byte order is big-endian!</p>
+    <table class="Table1"><tr><th class="Table1" width="220">Name</th><th class="Table1" width="160">Data types [4 / 8]</th><th class="Table1">Description</th></tr>
+        <tr><td class="Table2">positionLatitude<td class="Table2">int32 / double</td><td class="Table1">Geographic position (latitude in radians) according to WGS84, range [-pi/2, +pi/2].<br><b>int32 scaling</b>: [-pi/2, +pi/2] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">positionLongitude<td class="Table2">int32 / double</td><td class="Table1">Geographic position (latitude in radians) according to WGS84, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">positionAltitude<td class="Table2">float / double</td><td class="Table1">Geographic position (altitude in meters) according to WGS84, positive upwards.</td></tr>
+        <tr><td class="Table2">positionNorth<td class="Table2">float / double</td><td class="Table1">Position in north direction of earth-fixed frame in meters.</td></tr>
+        <tr><td class="Table2">positionEast<td class="Table2">float / double</td><td class="Table1">Position in east direction of earth-fixed frame in meters.</td></tr>
+        <tr><td class="Table2">positionDown<td class="Table2">float / double</td><td class="Table1">Position in down direction of earth-fixed frame in meters, positive downwards.</td></tr>
+        <tr><td class="Table2">orientationQuaternionW<td class="Table2">int32 / double</td><td class="Table1">Scalar part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationQuaternionX<td class="Table2">int32 / double</td><td class="Table1">X component of the vector part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationQuaternionY<td class="Table2">int32 / double</td><td class="Table1">Y component of the vector part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationQuaternionZ<td class="Table2">int32 / double</td><td class="Table1">Z component of the vector part for the unit quaternion that describes the rotation from body to navigation frame, range [-1, +1].<br><b>int32 scaling</b>: [-1, +1] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationRoll<td class="Table2">int32 / double</td><td class="Table1">Roll angle (euler angle around X axis) in radians according to the ZYX-convention, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationPitch<td class="Table2">int32 / double</td><td class="Table1">Pitch angle (euler angle around Y axis) in radians according to the ZYX-convention, range [-pi/2, +pi/2].<br><b>int32 scaling</b>: [-pi/2, +pi/2] &lt;=&gt; [-2147483647, 2147483647]</td></tr>
+        <tr><td class="Table2">orientationYaw<td class="Table2">int32 / double</td><td class="Table1">Yaw angle (euler angle around Z axis) in radians according to the ZYX-convention, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">velocityNorth<td class="Table2">float / double</td><td class="Table1">Velocity in north direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityEast<td class="Table2">float / double</td><td class="Table1">Velocity in east direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityDown<td class="Table2">float / double</td><td class="Table1">Velocity in down direction in meters per second.</td></tr>
+        <tr><td class="Table2">velocityU<td class="Table2">float / double</td><td class="Table1">Velocity in X direction of the body frame in meters per second.</td></tr>
+        <tr><td class="Table2">velocityV<td class="Table2">float / double</td><td class="Table1">Velocity in Y direction of the body frame in meters per second.</td></tr>
+        <tr><td class="Table2">velocityW<td class="Table2">float / double</td><td class="Table1">Velocity in Z direction of the body frame in meters per second.</td></tr>
+        <tr><td class="Table2">velocityP<td class="Table2">float / double</td><td class="Table1">Rotational velocity around X axis of the body frame in radians per second.</td></tr>
+        <tr><td class="Table2">velocityQ<td class="Table2">float / double</td><td class="Table1">Rotational velocity around Y axis of the body frame in radians per second.</td></tr>
+        <tr><td class="Table2">velocityR<td class="Table2">float / double</td><td class="Table1">Rotational velocity around Z axis of the body frame in radians per second.</td></tr>
+        <tr><td class="Table2">accelerationNorth<td class="Table2">float / double</td><td class="Table1">Acceleration in north direction in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationEast<td class="Table2">float / double</td><td class="Table1">Acceleration in east direction in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationDown<td class="Table2">float / double</td><td class="Table1">Acceleration in down direction in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationX<td class="Table2">float / double</td><td class="Table1">Acceleration in X direction of the body frame in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationY<td class="Table2">float / double</td><td class="Table1">Acceleration in Y direction of the body frame in meters per square-second.</td></tr>
+        <tr><td class="Table2">accelerationZ<td class="Table2">float / double</td><td class="Table1">Acceleration in Z direction of the body frame in meters per square-second.</td></tr>
+        <tr><td class="Table2">courseOverGround<td class="Table2">int32 / double</td><td class="Table1">Course over ground in radians, range [-pi, +pi).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">speedOverGround<td class="Table2">float / double</td><td class="Table1">Speed over ground in meters per second, <b>always &gt;= 0</b>.</td></tr>
+        <tr><td class="Table2">angleOfAttack<td class="Table2">int32 / double</td><td class="Table1">Angle of attack in radians, range [-pi, +pi). The angle of attack is defined to be atan2(velocityDown, speedOverGround).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+        <tr><td class="Table2">sideSlipAngle<td class="Table2">int32 / double</td><td class="Table1">Side slip angle in radians, range [-pi, +pi). The side slip angle is defined to be (courseOverGround - orientationYaw).<br><b>int32 scaling</b>: [-pi, +pi) &lt;=&gt; [-2147483648, 2147483647]</td></tr>
+    </table>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--></div></div></body></html>
