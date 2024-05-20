@@ -16,10 +16,10 @@ extern void IMP_DeleteDriverInfoRequestEncode(void);
 
 /**
  *  @brief Output function for the info request encode driver.
- *  @param [out] bytes Buffer where to store the encoded message.
- *  @param [out] length Length of the encoded message.
- *  @param [in] maxNumBytes Maximum number of bytes that can be written to the buffer (bytes).
- *  @param [in] timestamp Message timestamp (UTC seconds of the day).
+ *  @param[out] bytes Buffer where to store the encoded message.
+ *  @param[out] length Length of the encoded message.
+ *  @param[in] maxNumBytes Maximum number of bytes that can be written to the buffer (bytes).
+ *  @param[in] timestamp Message timestamp (UTC seconds of the day).
  */
 extern void IMP_OutputDriverInfoRequestEncode(uint8_t* bytes, uint32_t* length, uint32_t maxNumBytes, double timestamp);
 
