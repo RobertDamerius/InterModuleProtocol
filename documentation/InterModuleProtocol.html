@@ -10,18 +10,18 @@ Version 20220902
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div id="wrapper-sidebar">
 <ul class="nav-ul">
-	<li class="nav-label">INTER MODULE PROTOCOL</li>
-	<li class="nav-li"><a href="#Overview">Overview</a></li>
-	<li class="nav-li"><a href="#BasicMessageStructure">Basic Message Structure</a></li>
-	<li class="nav-divider"></li>
-	<li class="nav-label">MESSAGES</li>
-	<li class="nav-li"><a href="#InfoRequestMessage">(0x00) Info Request Message</a></li>
-	<li class="nav-li"><a href="#InfoResponseMessage">(0x01) Info Response Message</a></li>
-	<li class="nav-li"><a href="#GuidanceMessage">(0x47) Guidance Message</a></li>
-	<li class="nav-li"><a href="#LogMessage">(0x4C) Log Message</a></li>
-	<li class="nav-li"><a href="#NavigationMessage">(0x4E) Navigation Message</a></li>
-	<li class="nav-li"><a href="#ConvexPolygonMessage">(0x50) Convex Polygon Message</a></li>
-	<li class="nav-li"><a href="#GuidanceTrajectoryMessage">(0x54) Guidance Trajectory Message</a></li>
+    <li class="nav-label">INTER MODULE PROTOCOL</li>
+    <li class="nav-li"><a href="#Overview">Overview</a></li>
+    <li class="nav-li"><a href="#BasicMessageStructure">Basic Message Structure</a></li>
+    <li class="nav-divider"></li>
+    <li class="nav-label">MESSAGES</li>
+    <li class="nav-li"><a href="#InfoRequestMessage">(0x00) Info Request Message</a></li>
+    <li class="nav-li"><a href="#InfoResponseMessage">(0x01) Info Response Message</a></li>
+    <li class="nav-li"><a href="#GuidanceMessage">(0x47) Guidance Message</a></li>
+    <li class="nav-li"><a href="#LogMessage">(0x4C) Log Message</a></li>
+    <li class="nav-li"><a href="#NavigationMessage">(0x4E) Navigation Message</a></li>
+    <li class="nav-li"><a href="#ConvexPolygonMessage">(0x50) Convex Polygon Message</a></li>
+    <li class="nav-li"><a href="#GuidanceTrajectoryMessage">(0x54) Guidance Trajectory Message</a></li>
 </ul>
 </div>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--><div id="wrapper-content">
@@ -57,9 +57,9 @@ Version 20220902
     <p>The actual data of variable length that depends on the ID.</p>
 
     <div class="note-green">
-	<h3 class="note-green">Endianess</h3>
-	The network byte order is used which is defined to always be <b>big-endian</b> (MSB first).
-	</div>
+    <h3 class="note-green">Endianess</h3>
+    The network byte order is used which is defined to always be <b>big-endian</b> (MSB first).
+    </div>
 
 
 <a class="label" name="InfoRequestMessage"></a>
@@ -141,9 +141,9 @@ Version 20220902
     </tr></table>
 
     <div class="note-blue">
-	<h3 class="note-blue">Note</h3>
-	This message has the same structure as the <a href="#NavigationMessage">Navigation Message</a>. The only difference is the value for the ID.
-	</div>
+    <h3 class="note-blue">Note</h3>
+    This message has the same structure as the <a href="#NavigationMessage">Navigation Message</a>. The only difference is the value for the ID.
+    </div>
 
     <h2>ID</h2>
     <p>The ID is set to 0x47 which is the ASCII-code for 'G'.</p>
@@ -277,9 +277,9 @@ Version 20220902
     </tr></table>
 
     <div class="note-red">
-	<h3 class="note-red">Maximum UDP message length</h3>
-	A UDP message can contain at most 65507 bytes. The maximum number of bytes in the text is then limited to 65497.
-	</div>
+    <h3 class="note-red">Maximum UDP message length</h3>
+    A UDP message can contain at most 65507 bytes. The maximum number of bytes in the text is then limited to 65497.
+    </div>
 
     <h2>ID</h2>
     <p>The ID is set to 0x4C which is the ASCII-code for 'L'.</p>
@@ -314,9 +314,9 @@ Version 20220902
     </tr></table>
 
     <div class="note-blue">
-	<h3 class="note-blue">Note</h3>
-	This message has the same structure as the <a href="#GuidanceMessage">Guidance Message</a>. The only difference is the value for the ID.
-	</div>
+    <h3 class="note-blue">Note</h3>
+    This message has the same structure as the <a href="#GuidanceMessage">Guidance Message</a>. The only difference is the value for the ID.
+    </div>
 
     <h2>ID</h2>
     <p>The ID is set to 0x4E which is the ASCII-code for 'N'.</p>
@@ -485,10 +485,10 @@ Version 20220902
     </tr></table>
 
     <div class="note-red">
-	<h3 class="note-red">Maximum UDP message length</h3>
-	A UDP message can contain at most 65507 bytes. It may be necessary to split a polygon dataset into several messages.
+    <h3 class="note-red">Maximum UDP message length</h3>
+    A UDP message can contain at most 65507 bytes. It may be necessary to split a polygon dataset into several messages.
     For this purpose there is a segment counter in the polygon message.
-	</div>
+    </div>
 
     <h2>ID</h2>
     <p>The ID is set to 0x50 which is the ASCII-code for 'P'.</p>
