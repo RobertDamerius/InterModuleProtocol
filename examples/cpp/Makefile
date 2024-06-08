@@ -17,8 +17,8 @@ LIBRARY_PATHS := -L/usr/lib -L/usr/local/lib
 .PHONY: all
 all:
 ifeq ($(OS), Windows_NT)
-    $(CPP) $(CPP_FLAGS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) -o example.exe $(SOURCES_CPP) $(LIBS_WINDOWS)
+	$(CPP) $(CPP_FLAGS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) -o example.exe $(SOURCES_CPP) $(LIBS_WINDOWS)
 else
-    $(CPP) $(CPP_FLAGS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) -o example $(SOURCES_CPP) $(LIBS_LINUX)
+	$(CPP) $(CPP_FLAGS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) -o example $(SOURCES_CPP) $(LIBS_LINUX)
 endif
 
